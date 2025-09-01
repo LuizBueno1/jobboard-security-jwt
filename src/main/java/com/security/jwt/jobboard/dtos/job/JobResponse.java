@@ -1,4 +1,4 @@
-package com.security.jwt.jobboard.dtos;
+package com.security.jwt.jobboard.dtos.job;
 
 import lombok.Builder;
 import lombok.Data;

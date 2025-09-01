@@ -1,8 +1,8 @@
 package com.security.jwt.jobboard.controllers;
 
-import com.security.jwt.jobboard.dtos.JobRequest;
-import com.security.jwt.jobboard.dtos.JobResponse;
-import com.security.jwt.jobboard.models.JobModel;
+import com.security.jwt.jobboard.dtos.job.JobRequest;
+import com.security.jwt.jobboard.dtos.job.JobResponse;
+import com.security.jwt.jobboard.models.job.JobModel;
 import com.security.jwt.jobboard.repositories.JobRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

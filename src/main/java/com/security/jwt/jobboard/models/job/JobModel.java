@@ -1,4 +1,4 @@
-package com.security.jwt.jobboard.models;
+package com.security.jwt.jobboard.models.job;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
