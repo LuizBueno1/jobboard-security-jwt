@@ -12,10 +12,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.security.jwt.jobboard.dtos.AuthenticationRequest;
+import com.security.jwt.jobboard.dtos.LoginResponseDTO;
 import com.security.jwt.jobboard.dtos.RegisterRequest;
 import com.security.jwt.jobboard.models.user.UserModel;
 import com.security.jwt.jobboard.repositories.UserRepository;
 import com.security.jwt.jobboard.services.AuthorizationService;
+import com.security.jwt.jobboard.services.TokenService;
+
 import jakarta.validation.Valid;
 
 @RestController
@@ -30,21 +33,26 @@ public class AuthenticationController {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private TokenService tokenService;
+
     AuthenticationController(AuthorizationService authorizationService) {
         this.authorizationService = authorizationService;
     }
 
     @PostMapping("/login")
-    public ResponseEntity<Void> login(@RequestBody @Valid AuthenticationRequest data){
+    public ResponseEntity login(@RequestBody @Valid AuthenticationRequest data){
 
         UsernamePasswordAuthenticationToken usernamePassword = new UsernamePasswordAuthenticationToken(data.login(), data.password());
         Authentication auth = this.authenticationManager.authenticate(usernamePassword);
 
-        return ResponseEntity.ok().build();
+        var token = tokenService.generateToken((UserModel)auth.getPrincipal());
+
+        return ResponseEntity.ok(new LoginResponseDTO(token));
     }
 
     @PostMapping("/register")
-    public ResponseEntity<Void> register(@RequestBody @Valid RegisterRequest data){
+    public ResponseEntity register(@RequestBody @Valid RegisterRequest data){
         
         if(this.userRepository.findByLogin(data.login()) != null) return ResponseEntity.badRequest().build();
 

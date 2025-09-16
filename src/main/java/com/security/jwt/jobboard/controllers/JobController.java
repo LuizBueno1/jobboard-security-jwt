@@ -39,6 +39,7 @@ public class JobController {
                 .title(saved.getTitle())
                 .description(saved.getDescription())
                 .location(saved.getLocation())
+                .salary(saved.getSalary())
                 .publishedAt(saved.getPublishedAt())
                 .build();
 
